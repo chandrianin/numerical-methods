@@ -43,6 +43,7 @@ def newton():
     while abs(x[-1] - x[-2]) >= CONST_RATE:
         x.append(next_x(x[-1]))
     print("Метод Ньютона (касательных):")
+    print(f"Итераций: {len(x)}\nПогрешность: {abs(f(round(x[-1], 9))) / df(CONST_B)}")
     print("".join(format(i, '.7f') + "\n" for i in x))
 
 
@@ -61,13 +62,14 @@ def chords():
         x_k = x[-1]
         x.append(x_k - (a - x_k) * f(x_k) / (f(a) - f(x_k)))
 
-    while abs(x[-1] - x[-2]) >= CONST_RATE:
+    while abs(x[-1] - x[-2]) >= CONST_RATE / 10:
         if f(b) * ddf(b) > 0:
             x_k = x[-1]
             x.append(x_k - (b - x_k) * f(x_k) / (f(b) - f(x_k)))
         else:
             a, b = b, a
     print("Метод хорд:")
+    print(f"Итераций: {len(x)}\nПогрешность: {abs(f(x[-1])) / df(CONST_B)}")
     print("".join(format(i, '.7f') + "\n" for i in x))
 
 
@@ -80,6 +82,7 @@ def secant():
         x_k_2 = x[-2]
         x.append(x_k - (x_k - x_k_2) * f(x_k) / (f(x_k) - f(x_k_2)))
     print("Метод секущих:")
+    print(f"Итераций: {len(x)}\nПогрешность: {abs(f(round(x[-1], 9))) / df(CONST_B)}")
     print("".join(format(i, '.7f') + "\n" for i in x))
 
 
@@ -92,6 +95,7 @@ def newton_diff(h):
         x_k = x[-1]
         x.append(x_k - h * f(x_k) / (f(x_k + h) - f(x_k)))
     print("Конечноразностный метод Ньютона:")
+    print(f"Итераций: {len(x)}\nПогрешность: {abs(f(round(x[-1], 9))) / df(CONST_B)}")
     print("".join(format(i, '.7f') + "\n" for i in x))
 
 
@@ -104,12 +108,13 @@ def steffensen():
         x_k = x[-1]
         x.append(x_k - (f(x_k) ** 2) / (f(x_k + f(x_k)) - f(x_k)))
     print("Метод Стеффенсена:")
+    print(f"Итераций: {len(x)}\nПогрешность: {abs(f(round(x[-1], 9))) / df(CONST_B)}")
     print("".join(format(i, '.7f') + "\n" for i in x))
 
 
 # Метод простых итераций
 def simple_iterations():
-    t = 0.3  # подходит любое значение от 0 до 2 / df(CONST_B)
+    t = 0.5  # подходит любое значение от 0 до 2 / df(CONST_B)
     x = [0.2]
 
     x_k = x[-1]
@@ -118,10 +123,11 @@ def simple_iterations():
         x_k = x[-1]
         x.append(x_k - t * f(x_k))
     print("Метод простых итераций:")
+    print(f"Итераций: {len(x)}\nПогрешность: {abs(f(round(x[-1], 9))) / df(CONST_B)}")
     print("".join(format(i, '.7f') + "\n" for i in x))
 
 
-# graph()
+graph()
 newton()
 chords()
 secant()
